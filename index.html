@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kameez The Fab Hut</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #FF6B00;
+    --deep-red: #C0392B;
+    --gold: #D4A017;
+    --rose: #E8527A;
+    --cream: #FFF8F0;
+    --dark: #1A0A00;
+    --text: #3D1C00;
+    --muted: #8B5E3C;
+    --wa-green: #25D366;
+    --wa-number: 917025420530;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--saffron); border-radius: 3px; }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(255,248,240,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1.5px solid rgba(255,107,0,0.15);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 900;
+    color: var(--saffron);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .nav-logo span { display: block; font-size: 11px; font-family: 'DM Sans', sans-serif; font-weight: 300; color: var(--muted); letter-spacing: 3px; text-transform: uppercase; }
+  .nav-links { display: flex; gap: 2rem; align-items: center; }
+  .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; letter-spacing: 0.5px; cursor: pointer; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--saffron); }
+  .nav-wa-btn {
+    background: var(--wa-green); color: white;
+    border: none; padding: 9px 20px; border-radius: 24px;
+    font-size: 13px; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; display: flex; align-items: center; gap: 7px;
+    font-weight: 500; transition: opacity 0.2s;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+  .nav-wa-btn:hover { opacity: 0.88; }
+  .nav-wa-btn svg { width: 15px; height: 15px; fill: white; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+  .hamburger span { width: 24px; height: 2px; background: var(--saffron); border-radius: 2px; }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 80% 50%, rgba(255,107,0,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 50% at 20% 80%, rgba(212,160,23,0.1) 0%, transparent 60%);
+  }
+  .hero-pattern {
+    position: absolute; inset: 0; z-index: 0; opacity: 0.04;
+    background-image: repeating-linear-gradient(45deg, var(--saffron) 0, var(--saffron) 1px, transparent 0, transparent 50%);
+    background-size: 24px 24px;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 620px; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255,107,0,0.1); border: 1px solid rgba(255,107,0,0.25);
+    padding: 6px 16px; border-radius: 24px;
+    font-size: 12px; color: var(--saffron); letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-eyebrow::before { content: ''; width: 6px; height: 6px; background: var(--saffron); border-radius: 50%; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 6vw, 72px);
+    font-weight: 900; line-height: 1.05;
+    color: var(--dark); margin-bottom: 1.5rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero h1 em { font-style: italic; color: var(--saffron); }
+  .hero p {
+    font-size: 17px; color: var(--muted); line-height: 1.7;
+    margin-bottom: 2.5rem; max-width: 480px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; animation: fadeUp 0.6s 0.3s ease both; }
+  .btn-saffron {
+  background: linear-gradient(135deg, #FF6B00, #D4A017);
+  color: white;
+  border: none;
+  padding: 15px 34px;
+  border-radius: 40px;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255,107,0,0.35);
+}
+
+.btn-saffron::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.btn-saffron:hover::before {
+  opacity: 1;
+}
+
+.btn-saffron:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 18px 45px rgba(255,107,0,0.5);
+}
+  .btn-outline {
+  background: rgba(255,255,255,0.4);
+  backdrop-filter: blur(10px);
+  color: var(--text);
+  border: 1.5px solid rgba(255,107,0,0.3);
+  padding: 15px 34px;
+  border-radius: 40px;
+  font-size: 15px;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background: rgba(255,107,0,0.1);
+  color: var(--saffron);
+  border-color: var(--saffron);
+  transform: translateY(-3px);
+}
+  .hero-badges {
+    display: flex; gap: 2rem; margin-top: 3rem;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .hero-badge { text-align: center; }
+  .hero-badge .num { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--saffron); }
+  .hero-badge .lbl { font-size: 12px; color: var(--muted); }
+
+  /* Floating ethnic motif */
+ .hero-decor {
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 380px;
+  height: 380px;
+  z-index: 1;
+  animation: float 5s ease-in-out infinite;
+  opacity: 0.45; /* adjust between 0.4 - 0.5 */
+}
+
+.hero-decor img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+  @keyframes float { 0%,100%{transform:translateY(-50%) rotate(0deg)} 50%{transform:translateY(-54%) rotate(2deg)} }
+
+  /* ─── MARQUEE ─── */
+  .marquee-wrap {
+    background: var(--saffron); padding: 14px 0; overflow: hidden;
+    border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold);
+  }
+  .marquee-track {
+    display: flex; gap: 0; white-space: nowrap;
+    animation: marquee 18s linear infinite;
+  }
+  .marquee-track span {
+    font-size: 13px; font-weight: 500; color: white;
+    letter-spacing: 1px; padding: 0 2rem;
+    text-transform: uppercase;
+  }
+  .marquee-track span.dot { color: rgba(255,255,255,0.5); font-size: 18px; }
+  @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ─── CATALOGUE SECTION ─── */
+  .section { padding: 5rem 3rem; }
+  .section-head { text-align: center; margin-bottom: 3rem; }
+  .section-tag {
+    display: inline-block; font-size: 11px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--saffron); margin-bottom: 1rem;
+  }
+  .section-head h2 {
+    font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 900;
+    color: var(--dark); margin-bottom: 0.75rem;
+  }
+  .section-head p { font-size: 15px; color: var(--muted); max-width: 480px; margin: 0 auto; }
+
+  /* Category filters */
+  .filters { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .filter-btn {
+    border: 1.5px solid rgba(61,28,0,0.15); background: white;
+    color: var(--muted); padding: 8px 20px; border-radius: 24px;
+    font-size: 13px; font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: var(--saffron); color: var(--saffron); }
+  .filter-btn.active { background: var(--saffron); color: white; border-color: var(--saffron); }
+
+  /* Product grid */
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1.75rem; }
+
+  .product-card {
+    background: white; border-radius: 18px; overflow: hidden;
+    border: 1px solid rgba(61,28,0,0.08);
+    transition: transform 0.25s, box-shadow 0.25s;
+    cursor: pointer;
+  }
+  .product-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(255,107,0,0.15); }
+  .product-thumb {
+    height: 220px; display: flex; align-items: center; justify-content: center;
+    font-size: 64px; position: relative; overflow: hidden;
+  }
+  .product-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--saffron); color: white;
+    font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 12px;
+    letter-spacing: 0.5px;
+  }
+  .product-body { padding: 16px; }
+  .product-name { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 700; color: var(--dark); margin-bottom: 4px; }
+  .product-sub { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+  .product-foot { display: flex; justify-content: space-between; align-items: center; }
+  .product-price { font-size: 18px; font-weight: 500; color: var(--saffron); }
+  .product-price span { font-size: 12px; color: var(--muted); text-decoration: line-through; display: block; font-weight: 400; }
+  .order-btn {
+    background: var(--wa-green); color: white; border: none;
+    padding: 8px 16px; border-radius: 20px; font-size: 12px;
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+    cursor: pointer; display: flex; align-items: center; gap: 6px;
+    transition: opacity 0.2s;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+  .order-btn:hover { opacity: 0.85; }
+  .order-btn svg { width: 14px; height: 14px; fill: white; }
+
+  /* ─── FEATURED BANNER ─── */
+  .featured-banner {
+    margin: 0 3rem 5rem;
+    background: linear-gradient(135deg, var(--deep-red) 0%, #8B0000 100%);
+    border-radius: 24px; padding: 3.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    position: relative; overflow: hidden;
+  }
+  .featured-banner::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0, rgba(255,255,255,0.03) 1px, transparent 0, transparent 50%);
+    background-size: 20px 20px;
+  }
+  .featured-text { position: relative; z-index: 1; }
+  .featured-text h3 { font-family: 'Playfair Display', serif; font-size: 32px; color: white; margin-bottom: 0.5rem; }
+  .featured-text p { color: rgba(255,255,255,0.7); font-size: 15px; margin-bottom: 1.5rem; }
+  .featured-decor { position: absolute; right: 2rem; top: -20px; font-size: 120px; opacity: 0.15; }
+
+  /* ─── HOW IT WORKS ─── */
+  .how-section { background: white; padding: 5rem 3rem; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 3rem; }
+  .step { text-align: center; }
+  .step-num {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: rgba(255,107,0,0.1); border: 2px solid var(--saffron);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700;
+    color: var(--saffron); margin: 0 auto 1rem;
+  }
+  .step h4 { font-family: 'Playfair Display', serif; font-size: 17px; margin-bottom: 0.5rem; color: var(--dark); }
+  .step p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+  .step-arrow { display: flex; align-items: center; justify-content: center; color: var(--saffron); font-size: 24px; margin-top: 2rem; }
+
+  /* ─── TESTIMONIALS ─── */
+  .testimonials-section { padding: 5rem 3rem; background: var(--cream); }
+  .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+  .testimonial-card {
+    background: white; border-radius: 16px; padding: 1.5rem;
+    border: 1px solid rgba(61,28,0,0.08);
+  }
+  .stars { color: var(--gold); font-size: 15px; margin-bottom: 0.75rem; letter-spacing: 2px; }
+  .testimonial-card p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
+  .reviewer { display: flex; align-items: center; gap: 10px; }
+  .reviewer-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--saffron); display: flex; align-items: center; justify-content: center; color: white; font-size: 13px; font-weight: 500; }
+  .reviewer-name { font-size: 13px; font-weight: 500; color: var(--dark); }
+  .reviewer-loc { font-size: 11px; color: var(--muted); }
+
+  /* ─── WA SECTION ─── */
+  .wa-section {
+    background: linear-gradient(135deg, #1a472a 0%, #0d6632 100%);
+    padding: 5rem 3rem; text-align: center;
+  }
+  .wa-section h2 { font-family: 'Playfair Display', serif; font-size: 36px; color: white; margin-bottom: 1rem; }
+  .wa-section p { color: rgba(255,255,255,0.75); font-size: 16px; margin-bottom: 2rem; }
+  .wa-big {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--wa-green); color: white; border: none;
+    padding: 18px 40px; border-radius: 40px; font-size: 17px;
+    font-family: 'DM Sans', sans-serif; font-weight: 500;
+    cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 6px 30px rgba(37,211,102,0.4);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+  .wa-big:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(37,211,102,0.5); }
+  .wa-big svg { width: 22px; height: 22px; fill: white; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark); color: rgba(255,255,255,0.6);
+    padding: 3rem; text-align: center;
+  }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--saffron); margin-bottom: 0.5rem; }
+  footer p { font-size: 13px; margin-bottom: 0.5rem; }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 2000;
+    background: rgba(26,10,0,0.6); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--cream); border-radius: 24px; padding: 2.5rem;
+    max-width: 420px; width: 92%; border: 1px solid rgba(255,107,0,0.2);
+    animation: popIn 0.25s ease;
+  }
+  @keyframes popIn { from{transform:scale(0.93);opacity:0} to{transform:scale(1);opacity:1} }
+  .modal-emoji { font-size: 56px; margin-bottom: 1rem; }
+  .modal h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; margin-bottom: 4px; color: var(--dark); }
+  .modal .m-sub { font-size: 13px; color: var(--muted); margin-bottom: 1.5rem; }
+  .modal .m-price { font-size: 28px; color: var(--saffron); font-weight: 500; margin-bottom: 0.25rem; }
+  .modal .m-old { font-size: 14px; color: var(--muted); text-decoration: line-through; margin-bottom: 2rem; }
+  .modal-actions { display: flex; flex-direction: column; gap: 12px; }
+  .modal-wa { background: var(--wa-green); color: white; border: none; padding: 16px; border-radius: 28px; font-size: 16px; font-family: 'DM Sans', sans-serif; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .modal-wa svg { width: 20px; height: 20px; fill: white; }
+  .modal-close { background: transparent; color: var(--muted); border: 1px solid rgba(61,28,0,0.15); padding: 12px; border-radius: 24px; font-size: 14px; font-family: 'DM Sans', sans-serif; cursor: pointer; }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  /* ─── MOBILE ─── */
+  @media(max-width:768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .hero-decor { display: none; }
+    .section { padding: 3.5rem 1.5rem; }
+    .featured-banner { margin: 0 1.5rem 3rem; padding: 2rem; flex-direction: column; text-align: center; }
+    .how-section { padding: 3.5rem 1.5rem; }
+    .wa-section { padding: 3.5rem 1.5rem; }
+    footer { padding: 2rem 1.5rem; }
+    .hero-badges { gap: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Kameez<span>The Fab Hut</span></div>
+  <div class="nav-links">
+    <a onclick="scrollToId('catalogue')">Catalogue</a>
+    <a onclick="scrollToId('how')">How to Order</a>
+    <a onclick="scrollToId('reviews')">Reviews</a>
+    <button class="nav-wa-btn" onclick="openWA('Hi! I want to enquire about your collection at Kameez The Fab Hut')">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Chat with Us
+    </button>
+  </div>
+  <button class="hamburger" onclick="openWA('Hi! I want to browse Kameez The Fab Hut')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-pattern"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">New Collection 2025</div>
+    <h1>Ethnic wear that makes you <em>shine</em></h1>
+    <p>Handpicked kameez, kurtas & sarees crafted with love. Easy ordering through WhatsApp — fashion at your fingertips.</p>
+    <div class="hero-btns">
+      <button class="btn-saffron" onclick="scrollToId('catalogue')">Shop Now</button>
+      <button class="btn-outline" onclick="openWA('Hi! I\'d like to see Kameez The Fab Hut\'s latest collection')">Browse on WhatsApp</button>
+    </div>
+    <div class="hero-badges">
+      <div class="hero-badge"><div class="num">200+</div><div class="lbl">Happy Customers</div></div>
+      <div class="hero-badge"><div class="num">50+</div><div class="lbl">Styles</div></div>
+      <div class="hero-badge"><div class="num">100%</div><div class="lbl">Authentic</div></div>
+    </div>
+  </div>
+<div class="hero-decor">
+  <img src="your-image.jpg" alt="decor">
+</div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marquee">
+    <span>Free Delivery on All Orders</span><span class="dot">✦</span>
+    <span>Kameez · Kurtas · Sarees</span><span class="dot">✦</span>
+    <span>Order via WhatsApp</span><span class="dot">✦</span>
+    <span>Exclusive Designs</span><span class="dot">✦</span>
+    <span>Fast Delivery</span><span class="dot">✦</span>
+    <span>Premium Quality Fabric</span><span class="dot">✦</span>
+    <span>Free Delivery on All Orders</span><span class="dot">✦</span>
+    <span>Kameez · Kurtas · Sarees</span><span class="dot">✦</span>
+    <span>Order via WhatsApp</span><span class="dot">✦</span>
+    <span>Exclusive Designs</span><span class="dot">✦</span>
+    <span>Fast Delivery</span><span class="dot">✦</span>
+    <span>Premium Quality Fabric</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- CATALOGUE -->
+<section class="section" id="catalogue">
+  <div class="section-head">
+    <div class="section-tag">Our Collection</div>
+    <h2>The Fab Catalogue</h2>
+    <p>Discover our hand-curated range of ethnic wear — each piece a celebration of tradition and style</p>
+  </div>
+  <div class="filters">
+    <button class="filter-btn active" onclick="filterProducts('all', this)">All</button>
+    <button class="filter-btn" onclick="filterProducts('kameez', this)">Kameez</button>
+    <button class="filter-btn" onclick="filterProducts('kurta', this)">Kurtas</button>
+    <button class="filter-btn" onclick="filterProducts('saree', this)">Sarees</button>
+    <button class="filter-btn" onclick="filterProducts('suit', this)">Suit Sets</button>
+    <button class="filter-btn" onclick="filterProducts('kids', this)">Kids Wear</button>
+  </div>
+  <div class="products-grid" id="products-grid"></div>
+</section>
+
+<!-- FEATURED BANNER -->
+<div class="featured-banner">
+  <div class="featured-text">
+    <h3>🌟 Custom Orders Welcome!</h3>
+    <p>Want a specific color, fabric, or design? Chat with us and we'll make it happen just for you.</p>
+    <button class="btn-saffron" style="background:white;color:var(--deep-red);box-shadow:none;" onclick="openWA('Hi! I\'d like to place a custom order at Kameez The Fab Hut')">Request Custom Order</button>
+  </div>
+  <div class="featured-decor">👘</div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="section-head">
+    <div class="section-tag">Simple Process</div>
+    <h2>How to Order</h2>
+    <p>Shopping at Kameez The Fab Hut is as easy as sending a message</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Browse</h4>
+      <p>Explore our catalogue and pick the style you love</p>
+    </div>
+    <div class="step" style="align-self:center;padding-top:0;">
+      <div style="font-size:28px;color:var(--saffron);text-align:center;">→</div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Tap Order</h4>
+      <p>Click the WhatsApp order button on any product</p>
+    </div>
+    <div class="step" style="align-self:center;padding-top:0;">
+      <div style="font-size:28px;color:var(--saffron);text-align:center;">→</div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Chat with Us</h4>
+      <p>Confirm size, color & we'll arrange delivery for you</p>
+    </div>
+    <div class="step" style="align-self:center;padding-top:0;">
+      <div style="font-size:28px;color:var(--saffron);text-align:center;">→</div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Delivered!</h4>
+      <p>Your fabulous outfit arrives right at your doorstep</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials-section" id="reviews">
+  <div class="section-head">
+    <div class="section-tag">Customer Love</div>
+    <h2>What Our Customers Say</h2>
+    <p>Real reviews from our happy customers across Kerala</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"Got my kameez within 2 days! The fabric quality is outstanding and the design is exactly as shown. Will definitely order again!"</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">A</div>
+        <div><div class="reviewer-name">Aysha Rahman</div><div class="reviewer-loc">Kochi, Kerala</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"Ordered a saree for Eid and I was blown away. The color was vibrant and the stitching was perfect. Highly recommended!"</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">F</div>
+        <div><div class="reviewer-name">Fathima Noor</div><div class="reviewer-loc">Thrissur, Kerala</div></div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="stars">★★★★★</div>
+      <p>"The WhatsApp ordering is so easy! They helped me pick the right size and the kurta fits perfectly. Great service!"</p>
+      <div class="reviewer">
+        <div class="reviewer-avatar">P</div>
+        <div><div class="reviewer-name">Priya Menon</div><div class="reviewer-loc">Calicut, Kerala</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WA SECTION -->
+<section class="wa-section">
+  <h2>Ready to look fabulous?</h2>
+  <p>Chat with us directly on WhatsApp — we're always here to help you find the perfect outfit</p>
+  <button class="wa-big" onclick="openWA('Hi! I want to shop at Kameez The Fab Hut 👗')">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    Start Shopping on WhatsApp
+  </button>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Kameez The Fab Hut</div>
+  <p>Bringing the finest ethnic wear right to your doorstep</p>
+  <p style="margin-top:1rem;">📱 +91 70254 20530 &nbsp;|&nbsp; WhatsApp Orders Only</p>
+  <p style="margin-top:1rem;font-size:11px;">© 2025 Kameez The Fab Hut. All rights reserved.</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-emoji" id="m-emoji">👗</div>
+    <h3 id="m-name">Product</h3>
+    <div class="m-sub" id="m-sub">Category</div>
+    <div class="m-price" id="m-price">₹999</div>
+    <div class="m-old" id="m-old"></div>
+    <div class="modal-actions">
+      <button class="modal-wa" id="m-wa-btn">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Order via WhatsApp
+      </button>
+      <button class="modal-close" onclick="closeModal()">Maybe later</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const WA = '917025420530';
+
+const products = [
+  { id:1, cat:'kameez', label:'Kameez', name:'Embroidered Cotton Kameez', desc:'Elegant threadwork on soft cotton', price:'₹1,199', old:'₹1,599', emoji:'👗', bg:'#FFF0E8', badge:'Bestseller' },
+  { id:2, cat:'kameez', label:'Kameez', name:'Floral Chiffon Kameez', desc:'Light & breezy for summer', price:'₹999', old:'₹1,299', emoji:'🌸', bg:'#FFF0F5', badge:'New' },
+  { id:3, cat:'kurta', label:'Kurta', name:'Men\'s Linen Kurta', desc:'Classic cut, premium linen fabric', price:'₹799', old:'', emoji:'👔', bg:'#F0F5FF', badge:'' },
+  { id:4, cat:'kurta', label:'Kurta', name:'Printed Kurta Set', desc:'Bold prints with matching palazzo', price:'₹1,499', old:'₹1,899', emoji:'✨', bg:'#FFF8E8', badge:'Sale' },
+  { id:5, cat:'saree', label:'Saree', name:'Silk Kasavu Saree', desc:'Traditional Kerala beauty', price:'₹2,499', old:'₹2,999', emoji:'🥻', bg:'#FFF8F0', badge:'Premium' },
+  { id:6, cat:'saree', label:'Saree', name:'Georgette Printed Saree', desc:'Soft drape with vibrant print', price:'₹1,699', old:'', emoji:'🌺', bg:'#FFF0F8', badge:'' },
+  { id:7, cat:'suit', label:'Suit Set', name:'Anarkali Suit Set', desc:'Full flare with dupatta', price:'₹2,199', old:'₹2,799', emoji:'💃', bg:'#F5F0FF', badge:'Popular' },
+  { id:8, cat:'suit', label:'Suit Set', name:'Straight Cut Suit', desc:'Minimal & modern fit', price:'₹1,799', old:'', emoji:'👘', bg:'#F0FFF5', badge:'' },
+  { id:9, cat:'kids', label:'Kids Wear', name:'Kids Party Frock', desc:'Adorable ethnic design for girls', price:'₹649', old:'₹849', emoji:'🎀', bg:'#FFF0F5', badge:'Cute' },
+  { id:10, cat:'kids', label:'Kids Wear', name:'Boys Kurta Pyjama', desc:'Festive set for little ones', price:'₹549', old:'', emoji:'🧒', bg:'#F0F8FF', badge:'' },
+  { id:11, cat:'kameez', label:'Kameez', name:'Mirror Work Kameez', desc:'Dazzling hand-embroidered mirrors', price:'₹1,899', old:'₹2,299', emoji:'✨', bg:'#FFF5E0', badge:'Festive' },
+  { id:12, cat:'saree', label:'Saree', name:'Cotton Handloom Saree', desc:'Everyday elegance, all-day comfort', price:'₹1,299', old:'', emoji:'🌿', bg:'#F0FFF0', badge:'' },
+];
+
+function renderProducts(filter) {
+  const grid = document.getElementById('products-grid');
+  const list = filter === 'all' ? products : products.filter(p => p.cat === filter);
+  grid.innerHTML = list.map(p => `
+    <div class="product-card" onclick="openModal(${p.id})">
+      <div class="product-thumb" style="background:${p.bg}">
+        ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
+        <span style="font-size:58px">${p.emoji}</span>
+      </div>
+      <div class="product-body">
+        <div class="product-name">${p.name}</div>
+        <div class="product-sub">${p.label} · ${p.desc}</div>
+        <div class="product-foot">
+          <div class="product-price">${p.price}${p.old ? `<span>${p.old}</span>` : ''}</div>
+          <button class="order-btn" onclick="event.stopPropagation(); orderProduct(${p.id})">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Order
+          </button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterProducts(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderProducts(cat);
+}
+
+function openModal(id) {
+  const p = products.find(x => x.id === id);
+  document.getElementById('m-emoji').textContent = p.emoji;
+  document.getElementById('m-name').textContent = p.name;
+  document.getElementById('m-sub').textContent = `${p.label} · ${p.desc}`;
+  document.getElementById('m-price').textContent = p.price;
+  document.getElementById('m-old').textContent = p.old ? `Original price: ${p.old}` : '';
+  document.getElementById('m-wa-btn').onclick = () => orderProduct(id);
+  document.getElementById('modal').classList.add('open');
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('open'); }
+
+function openWA(msg) {
+  window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function orderProduct(id) {
+  const p = products.find(x => x.id === id);
+  const msg = `Hi! 👋 I'd like to order from *Kameez The Fab Hut*:\n\n👗 *${p.name}*\n📦 Category: ${p.label}\n💰 Price: ${p.price}\n\nPlease let me know the available sizes, colors, and delivery details. Thank you!`;
+  openWA(msg);
+  closeModal();
+}
+
+function scrollToId(id) { document.getElementById(id).scrollIntoView({ behavior: 'smooth' }); }
+
+document.getElementById('modal').addEventListener('click', function(e) { if(e.target===this) closeModal(); });
+
+renderProducts('all');
+</script>
+</body>
+</html>
